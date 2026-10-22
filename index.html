@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <title>backyard baseball '97</title>
+  <link rel="icon" href="data:,">
+  <style>
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #000; color: #dedede; font: 14px/1.5 system-ui, sans-serif; }
+body { display: grid; place-items: center; overscroll-behavior: none; }
+#canvas { display: block; width: min(100vw, 133.333333vh); height: min(100vh, 75vw); width: min(100vw, 133.333333dvh); height: min(100dvh, 75vw); margin: 0; padding: 0; border: 0; outline: none; image-rendering: pixelated; touch-action: none; }
+#loading, #error { position: fixed; inset: 0; background: #000; display: grid; place-content: center; text-align: center; padding: 24px; }
+.loading-content { width: min(280px, 80vw); }
+#status { margin-bottom: 12px; }
+#amount { margin-top: 8px; color: #858585; font-variant-numeric: tabular-nums; font-size: 12px; }
+progress { display: block; width: 100%; height: 3px; border: 0; appearance: none; background: #272727; color: #dedede; }
+progress::-webkit-progress-bar { background: #272727; }
+progress::-webkit-progress-value { background: #dedede; }
+progress::-moz-progress-bar { background: #dedede; }
+#error { z-index: 2; justify-items: center; }
+#error p { max-width: 540px; overflow-wrap: anywhere; }
+button { color: inherit; background: #202020; border: 1px solid #444; padding: 8px 16px; margin: 5px; font: inherit; cursor: pointer; }
+button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+[hidden] { display: none !important; }
+noscript { position: fixed; inset: 0; display: grid; place-content: center; background: #000; }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480" tabindex="0" aria-label="backyard baseball game"></canvas>
+  <div id="loading" role="status" aria-live="polite">
+    <div class="loading-content">
+      <div id="status">loading</div>
+      <progress id="progress" max="100" value="0" aria-label="download progress"></progress>
+      <div id="amount">0%</div>
+    </div>
+  </div>
+  <section id="error" hidden role="alert">
+    <p id="message"></p>
+    <button id="reload" type="button">reload</button>
+  </section>
+  <noscript>javascript is required to run the game.</noscript>
+  <script type="module" src="app.js?v=8"></script>
+</body>
+</html>
