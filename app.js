@@ -151,8 +151,9 @@ async function download(file, urls, {fetcher = fetch, signal, progress = () => {
               const expected = parts ? parts[index].size : file.transport?.size ?? file.size;
               const response = await fetcher(list[index], {signal: controller.signal, cache: attempt ? "reload" : "default"});
               if (!response.ok) throw new Error(`${file.path}: server returned ${response.status}`);
-              const contentLength = Number(response.headers.get("content-length"));
-              if (Number.isFinite(contentLength) && contentLength !== expected) throw new Error(`wrong packed size: ${file.path}`);
+              const lengthHeader = response.headers.get("content-length");
+              const contentLength = lengthHeader === null ? NaN : Number(lengthHeader);
+              if (!response.headers.get("content-encoding") && Number.isFinite(contentLength) && contentLength !== expected) throw new Error(`wrong packed size: ${file.path}`);
               const partReader = response.body?.getReader();
               let partTransferred = 0;
               if (partReader) {
